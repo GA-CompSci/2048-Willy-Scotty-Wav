@@ -17,9 +17,9 @@ public class GUI extends JFrame {
     // =====================================================================
 
     // Background & text colors
-    private static final Color BACKGROUND_COLOR    = new Color(250, 248, 239);
-    private static final Color TEXT_COLOR           = new Color(119, 110, 101);
-    private static final Color BOARD_COLOR         = new Color(187, 173, 160);
+    private static final Color BACKGROUND_COLOR    = new Color(220, 208, 255);
+    private static final Color TEXT_COLOR           = new Color(50, 50, 30);
+    private static final Color BOARD_COLOR         = new Color(80, 80, 70);
     private static final Color BUTTON_COLOR        = new Color(143, 122, 102);
 
     // Tile text colors (low = 2 & 4, high = 8+)
@@ -31,7 +31,7 @@ public class GUI extends JFrame {
     private static final Color GAME_OVER_COLOR     = Color.RED;
 
     // Tile background colors — one per tile value
-    private static final Color TILE_EMPTY  = new Color(238, 228, 218);
+    private static final Color TILE_EMPTY  = new Color(130, 130, 109);
     private static final Color TILE_2      = new Color(238, 228, 218);
     private static final Color TILE_4      = new Color(237, 224, 200);
     private static final Color TILE_8      = new Color(242, 177, 121);
@@ -58,7 +58,7 @@ public class GUI extends JFrame {
     private JPanel gamePanel;
     
     public GUI() {
-        setTitle("2048 Game");
+        setTitle("twothousandandfourtyeight.game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         
