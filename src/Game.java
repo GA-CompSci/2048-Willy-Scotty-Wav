@@ -72,7 +72,6 @@ public class Game {
      * Hint: Loop through the board and check each cell
      */
     private ArrayList<int[]> getEmptyCells() {
-        // TODO: Complete this method
         ArrayList<int[]> emptyCells = new ArrayList<>();
         //2d loop
         for(int row = 0; row< board.length; row++){
@@ -84,7 +83,6 @@ public class Game {
     }
     
     /**
-     * TODO #3: Implement the moveLeft method
      * Requirements:
      * - Slide all tiles to the left (remove gaps)
      * - Merge adjacent tiles with same value
@@ -101,19 +99,20 @@ public class Game {
      * 2. If any row changed, add a random tile
      */
     public boolean moveLeft() {
-        // TODO: Complete this method
         boolean moved = false;
         
         // check thought every row
         for(int row = 0; row < board.length; row++){
             //temp tool for numbers
             int[] temp = new int[BOARD_SIZE];
+
             int copyCount = 0;
             for(int col = 0; col< board[0].length; col ++){
                 if(board[row][col] != 0) temp[copyCount++] = board[row][col];
             }
             //now we do the hard part :( - merge
-            for(int col = 0; col< board[0].length; col ++){
+            for(int col = 0; col< board[0].length - 1; col ++){
+
                 if(temp[col] == temp[col + 1]){
                     temp[col] = temp[col]*2;
                     //add points
@@ -127,7 +126,7 @@ public class Game {
             }
 
 
-            //chech for dif
+            //check for dif
             for(int col = 0; col< board[0].length; col ++){
                 if(temp[col] != board[row][col]){
                     moved = true;
@@ -149,9 +148,42 @@ public class Game {
      * Hint: Process from right to left instead of left to right
      */
     public boolean moveRight() {
-        // TODO: Complete this method
         boolean moved = false;
         
+        // check thought every row
+        for(int row = 0; row < board.length; row++){
+            //temp tool for numbers
+            int[] temp = new int[BOARD_SIZE];
+
+            int copyCount = BOARD_SIZE - 1;
+            for(int col = board[0].length - 1; col >= 0; col--){
+                if(board[row][col] != 0) temp[copyCount--] = board[row][col];
+            }
+            //now we do the hard part :( - merge
+            for(int col = board[0].length - 1; col > 0 ; col--){
+
+                if(temp[col] == temp[col - 1]){
+                    temp[col] = temp[col]*2;
+                    //add points
+                    score += temp[col];
+                    //add 0
+                    for(int scootch = col - 1; scootch > 0; scootch--){
+                        temp[scootch] = temp[scootch - 1];
+                    }
+                    temp[0] = 0;
+                }
+            }
+
+
+            //check for dif
+            for(int col = board[0].length - 1; col >= 0; col--){
+                if(temp[col] != board[row][col]){
+                    moved = true;
+                }
+                board[row] = temp; //repace row w new val
+            }
+        }  
+        if(moved) addRandomTile();
         return moved;
     }
     
