@@ -139,7 +139,6 @@ public class Game {
     }
     
     /**
-     * TODO #4: Implement the moveRight method
      * Requirements:
      * - Similar to moveLeft but in opposite direction
      * - Slide tiles to the right
@@ -196,10 +195,43 @@ public class Game {
      * 
      * Hint: Work with columns instead of rows
      */
-    public boolean moveUp() {
-        // TODO: Complete this method
+      public boolean moveUp() {
         boolean moved = false;
         
+        // check thought every row
+        for(int col = 0; col < board[0].length; col++){
+            //temp tool for numbers
+            int[] temp = new int[BOARD_SIZE];
+
+            int copyCount = 0;
+            for(int row = 0; row <board.length; row++){
+                if(board[row][col] != 0) temp[copyCount++] = board[row][col];
+            }
+            //now we do the hard part :( - merge
+            for(int row = 0; row < board.length-1 ; row++){
+
+                if(temp[row] == temp[row + 1]){
+                    temp[row] = temp[row]*2;
+                    //add points
+                    score += temp[row];
+                    //add 0
+                    for(int scootch = row + 1; scootch < board.length-1; scootch++){
+                        temp[scootch] = temp[scootch + 1];
+                    }
+                    temp[board.length-1] = 0;
+                }
+            }
+
+
+            //check for dif
+            for(int row = board[0].length - 1; row >= 0; row--){
+                if(temp[row] != board[row][col]){
+                    moved = true;
+                }
+                board[row][col] = temp[row]; //repace row w new val
+            }
+        }  
+        if(moved) addRandomTile();
         return moved;
     }
     
@@ -211,9 +243,42 @@ public class Game {
      * - Merge from bottom to top
      */
     public boolean moveDown() {
-        // TODO: Complete this method
         boolean moved = false;
         
+        // check thought every row
+        for(int col = 0; col < board[0].length; col++){
+            //temp tool for numbers
+            int[] temp = new int[BOARD_SIZE];
+
+            int copyCount = 0;
+            for(int row = 0; row <board.length; row--){
+                if(board[row][col] != 0) temp[copyCount++] = board[row][col];
+            }
+            //now we do the hard part :( - merge
+            for(int row = 0; row < board.length-1 ; row++){
+
+                if(temp[row] == temp[row + 1]){
+                    temp[row] = temp[row]*2;
+                    //add points
+                    score += temp[row];
+                    //add 0
+                    for(int scootch = col + 1; scootch < board.length-1; scootch++){
+                        temp[scootch] = temp[scootch + 1];
+                    }
+                    temp[board.length-1] = 0;
+                }
+            }
+
+
+            //check for dif
+            for(int row = board[0].length - 1; row >= 0; row--){
+                if(temp[row] != board[row][col]){
+                    moved = true;
+                }
+                temp[0] = 0; //repace row w new val
+            }
+        }  
+        if(moved) addRandomTile();
         return moved;
     }
     
@@ -227,6 +292,7 @@ public class Game {
      */
     public boolean hasWon() {
         // TODO: Complete this method
+      //  for(Board tile: )
         
         return false;
     }
