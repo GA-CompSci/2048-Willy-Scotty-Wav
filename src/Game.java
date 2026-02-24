@@ -246,7 +246,7 @@ public class Game {
         boolean moved = false;
         
         // check thought every col
-        for(int col = 0; col < board[0].length; col++){
+        for(int col = board[0].length - 1; col >= 0; col--){
             //temp tool for numbers
             int[] temp = new int[BOARD_SIZE];
 
@@ -265,7 +265,7 @@ public class Game {
                     for(int scootch = row - 1; scootch > 0 ; scootch--){
                         temp[scootch] = temp[scootch - 1];
                     }
-                    temp[0] = 0; // ERROR
+                    temp[0] = 0; 
                 }
             }
 
@@ -275,7 +275,7 @@ public class Game {
                 if(temp[row] != board[row][col]){
                     moved = true;
                 }
-                board[col][row] = temp[col]; //repace row w new val
+                board[row][col] = temp[row]; 
             }
         }  
         if(moved) {
@@ -312,9 +312,21 @@ public class Game {
      * Hint: First check for empty cells, then check all adjacent pairs
      */
     public boolean isGameOver() {
-        // TODO: Complete this method
-        
-        return false;
+        if(getEmptyCells().size() != 0){
+            return false;
+        } 
+        else{
+           for(int row = 0; row < board.length - 1; row++){  
+                for(int col = 0; col < board[0].length - 1; col++){
+                    if(board[row][col] == board[row+1][col] 
+                        || board[row][col] == board[row][col+1] ){
+                      return false;   
+                    }    
+                }
+            }  
+        }
+    
+        return true;
     }
     
     // ===================== PROVIDED METHODS - DO NOT MODIFY =====================
